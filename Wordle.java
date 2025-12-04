@@ -8,6 +8,7 @@ public class Wordle {
             in.readString();
             count++; 
         }
+        in = new In(filename);
         String[] dict = new String[count]; 
         int i = 0;
         while (!in.isEmpty()){
@@ -45,8 +46,8 @@ public class Wordle {
                 if (secret.charAt(i) == c){ 
                 resultRow[i] = 'G'; 
                }
-               if (containsChar(secret, c)){
-                resultRow[i] = 'y'; 
+               else if (containsChar(secret, c)){
+                resultRow[i] = 'Y'; 
                }
                else { 
                 resultRow[i] = '_' ;  
@@ -130,7 +131,7 @@ public class Wordle {
                 System.out.print("Enter your guess (5-letter word): ");
                 guess = inp.readString();
 
-                if (guess.length() == 5) {
+                if (guess.length() != 5) {
                     System.out.println("Invalid word. Please try again.");
                 } else {
                     valid = true;
@@ -139,9 +140,8 @@ public class Wordle {
 
             // Store guess and compute feedback
             // ... use storeGuess and computeFeedback
-            char[] resultRow = new char[5];
             storeGuess(guess, guesses, attempt);
-            computeFeedback(secret, guess, resultRow);
+            computeFeedback(secret, guess, results[attempt]);
 
             // Print board
             printBoard(guesses, results, attempt);
